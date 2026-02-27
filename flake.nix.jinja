@@ -1,0 +1,24 @@
+{
+  description = "{{ flake_description }}";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/{{ nixpkgs_ref }}";
+    flake-parts.url = "github:hercules-ci/flake-parts/main";
+  };
+
+  outputs =
+    inputs@{ self, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit self inputs; } {
+      systems = [
+      {%- for system in flake_systems %}
+        "{{ system }}"
+      {%- endfor %}
+      ];
+
+      imports = [
+        {%- if use_nix_shell %}
+        ./flake/shell.nix
+        {%- endif %}
+      ];
+    };
+}

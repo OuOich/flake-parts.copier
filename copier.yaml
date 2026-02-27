@@ -1,0 +1,47 @@
+_exclude:
+  - /copier.yaml
+  - /.git
+  - /.direnv
+  - /flake.lock
+  - /LICENSE
+  - /README.md
+
+flake_description:
+  help: Set a description for the flake.
+  type: str
+  placeholder: A nix flake for this project
+
+nixpkgs_ref:
+  help: Select the nixpkgs version to use in the flake.
+  type: str
+  choices:
+    - master
+    - nixos-unstable
+    - nixos-25.11
+    - nixos-25.05
+    - nixos-24.11
+    - nixos-24.05
+    - nixos-23.11
+    - nixos-23.05
+  default: nixos-25.11
+
+flake_systems:
+  help: Select the system architectures to use in the flake. (multiple selections allowed)
+  type: str
+  multiselect: true
+  choices:
+    - aarch64-darwin
+    - aarch64-linux
+    - x86_64-darwin
+    - x86_64-linux
+  default: [x86_64-linux]
+
+use_nix_shell:
+  help: Do you want to create a shell.nix and reference it in the flake?
+  type: bool
+  default: true
+
+use_direnv:
+  help: Do you want to use direnv?
+  type: bool
+  default: true
